@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-
+import java.util.Map;
 /**
  * Lead Author(s):
  * 
@@ -22,9 +21,8 @@ import java.util.ArrayList;
  * 
  */
 
-public class Book extends Catalog {
+public class Book extends Catalog implements Requestable {
 
-	private ArrayList<Book> books = new ArrayList<>();
 	private String title;
 	private String author;
 	private String genre;
@@ -91,10 +89,54 @@ public class Book extends Catalog {
     	return numberOfPages;
     }
     
-    public int getNumberOfEntries() {
-    	if (books.size() == 0) {
-			return 0;
-		}
-    	return books.size();
+    //implementing requestable interface
+    
+    @Override
+    public boolean newRequest(Map<String, String> details) {
+    	Catalog catalog = getInstance();
+    	
+    	String title = details.get("title");
+    	String author = details.get("author");
+    	String genre = details.get("genre");
+    	int numberOfPages = Integer.parseInt(details.get("numberOfPages"));
+    	
+    	Book newBook = new Book(title, author, genre, numberOfPages);
+    	
+    	catalog.addBook(newBook);
+    	
+    	return true;
     }
+
+
+	@Override
+	public void setDetails(Map<String, String> details) {
+		if (details.containsKey("title")) {
+			this.title = details.get("title");
+		}
+
+		if (details.containsKey("author")) {
+			this.title = details.get("author");
+		}
+
+		if (details.containsKey("genre")) {
+			this.title = details.get("genre");
+		}
+
+		if (details.containsKey("numberOfPages")) {
+			try {
+				this.numberOfPages = Integer.parseInt(details.get("numberOfPages"));
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid number of pages format: " + details.get("numberOfPages"));
+			}
+		}		
+	}
+
+
+	@Override
+	public String getFormattedRequestDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+
 }

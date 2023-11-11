@@ -18,26 +18,26 @@ import java.util.ArrayList;
  * 
  */
 
-public class ResearchDatabase implements Requestable {
+public class ResearchDatabase {
 	
-	private ArrayList<Requestable> ResearchDatabase = new ArrayList<>();
-
-	/**
-	 * Purpose: constructor
-	 * 
-	 * @param narrator
-	 * 
-	 */
-	public ResearchDatabase(ResearchArticle article) {
-
-	}
-	
-	 public int getNumberOfEntries() {
-	    	if (ResearchDatabase.size() == 0) {
-				return 0;
-			}
-	    	return ResearchDatabase.size();
-	    }
-	
-	
+//	private ArrayList<Requestable> ResearchDatabase = new ArrayList<>();
+//
+//	/**
+//	 * Purpose: constructor
+//	 * 
+//	 * @param narrator
+//	 * 
+//	 */
+//	public ResearchDatabase(ResearchArticle article) {
+//
+//	}
+//	
+//	 public int getNumberOfEntries() {
+//	    	if (ResearchDatabase.size() == 0) {
+//				return 0;
+//			}
+//	    	return ResearchDatabase.size();
+//	    }
+//	
+//	
 }

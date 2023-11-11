@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Lead Author(s):
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * 
  */
 
-public class ResearchArticle implements Requestable {
+public class ResearchArticle extends Catalog implements Requestable {
 	private String topic;
 	private String datePublished;
 
@@ -75,5 +75,34 @@ public class ResearchArticle implements Requestable {
 //		}
 //    	return ResearchArticles.size();
 //    }
+
+
+	@Override
+	public boolean newRequest(Map<String, String> details) {
+		Catalog catalog = getInstance();
+		
+		String topic = details.get("topic");
+		String publicationDate = details.get("publicationDate");
+		
+		ResearchArticle newArticle = new ResearchArticle(topic, publicationDate);
+		
+		catalog.addResearchArticle(newArticle);
+		
+		return true;
+	}
+
+
+	@Override
+	public void setDetails(Map<String, String> details) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String getFormattedRequestDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
