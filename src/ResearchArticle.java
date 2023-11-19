@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Map;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  * 
- *         Version/date: 10/27
+ *         Version/date: 11/18
  * 
  *         Responsibilities of class: This class inherits from the research database
  *         class.
@@ -22,16 +23,21 @@ import java.util.Map;
  * 
  */
 
-public class ResearchArticle extends Catalog implements Requestable {
+public class ResearchArticle extends Entries implements Requestable {
+	private List<ResearchArticle> articles;
+
 	private String topic;
 	private String datePublished;
+	private String type = "Research Article";
+
 
 	/**
 	 * Purpose: ArrayList book constructor
 	 * 
 	 * @param no param constuctor
 	 */
-	public ResearchArticle() {
+	public ResearchArticle(String type) {
+		super("Research Article");
 	}
 
 
@@ -43,50 +49,26 @@ public class ResearchArticle extends Catalog implements Requestable {
 	 * @param audio length
 	 * 
 	 */
-	public ResearchArticle(String topic, String datePublished) {
+	public ResearchArticle(String type, String topic, String datePublished) {
+		super("Research Article");
 		this.topic = topic;
 		this.datePublished = datePublished;
 	}
 	
+	public void updateCount() {
+		System.out.println("Updating Research Article count.");
+	}
 	
-	//setters
-	
-    public void setTopic(String newTopic) {
-    	this.topic = newTopic;
-    }
-    
-    public void setDatePublished(String newDatePublished) {
-    	this.datePublished = newDatePublished;
-    }
-    
-    //getters
-    
-    public String getTopic() {
-		return topic;
-    }
-    
-    public String getDatePublished() {
-    	return datePublished;
-    }
-//    
-//    public int getNumberOfEntries() {
-//    	if (ResearchArticles.size() == 0) {
-//			return 0;
-//		}
-//    	return ResearchArticles.size();
-//    }
-
-
 	@Override
 	public boolean newRequest(Map<String, String> details) {
-		Catalog catalog = getInstance();
+		Catalog catalog = Catalog.getInstance();
 		
 		String topic = details.get("topic");
 		String publicationDate = details.get("publicationDate");
 		
-		ResearchArticle newArticle = new ResearchArticle(topic, publicationDate);
+		ResearchArticle newArticle = new ResearchArticle(type, topic, publicationDate);
 		
-		catalog.addResearchArticle(newArticle);
+		catalog.addToCatalog(newArticle);
 		
 		return true;
 	}
@@ -94,15 +76,26 @@ public class ResearchArticle extends Catalog implements Requestable {
 
 	@Override
 	public void setDetails(Map<String, String> details) {
-		// TODO Auto-generated method stub
+		if (details.containsKey("title")) {
+			this.topic = details.get("topic");
+		}
+
+		if (details.containsKey("narrator")) {
+			this.datePublished = details.get("datePublished");
+		}
 		
 	}
 
 
 	@Override
 	public String getFormattedRequestDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder formattedDetails = new StringBuilder();
+		
+		formattedDetails.append("Research Article Details:\n");
+		formattedDetails.append("Topic: ").append(topic).append("\n");
+		formattedDetails.append("Date Published: ").append(datePublished).append("\n");
+		
+		return formattedDetails.toString();
 	}
 
 }

@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 /**
  * Lead Author(s):
@@ -11,7 +12,7 @@ import java.util.Map;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  * 
- *         Version/date: 10/27
+ *         Version/date: 11/18
  * 
  *         Responsibilities of class: This class inherits from the catalog
  *         class.
@@ -21,19 +22,22 @@ import java.util.Map;
  * 
  */
 
-public class Book extends Catalog implements Requestable {
-
+public class Book extends Entries implements Requestable {
+	
+	private List<Book> books;
 	private String title;
 	private String author;
 	private String genre;
 	private int numberOfPages;
+	private String type = "Book";
 
 	/**
 	 * Purpose: ArrayList book constructor
 	 * 
 	 * @param no param constuctor
 	 */
-	public Book() {
+	public Book(String type) {
+		super("Book");
 	}
 
 
@@ -45,64 +49,33 @@ public class Book extends Catalog implements Requestable {
 	 * @param numberOfPages
 	 * 
 	 */
-	public Book(String title, String author, String genre, int numberOfPages) {
+	public Book(String type, String title, String author, String genre, int numberOfPages) {
+		super("Book");
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
 		this.numberOfPages = numberOfPages;
+		updateCount();
 	}
 	
+	public void updateCount() {
+		System.out.println("Updating Book count.");
+	}
 	
-	//setters
-	
-    public void setAuthor(String newAuthor) {
-    	this.author = newAuthor;
-    }
-    
-    public void setTitle(String newTitle) {
-    	this.title = newTitle;
-    }
-	
-    public void setGenre(String newGenre) {
-    	this.genre = newGenre;
-    }
-    
-    public void setNumberOfPages(int newPageNumber) {
-    	this.numberOfPages = newPageNumber;
-    }
-    
-    //getters
-    
-    public String getAuthor() {
-		return author;
-    }
-    
-    public String getTitle() {
-    	return title;
-    }
-
-    public String getGenre() {
-    	return genre;
-    }
-    
-    public int getNumberOfPages() {
-    	return numberOfPages;
-    }
-    
     //implementing requestable interface
     
     @Override
     public boolean newRequest(Map<String, String> details) {
-    	Catalog catalog = getInstance();
+    	Catalog catalog = Catalog.getInstance();
     	
     	String title = details.get("title");
     	String author = details.get("author");
     	String genre = details.get("genre");
     	int numberOfPages = Integer.parseInt(details.get("numberOfPages"));
     	
-    	Book newBook = new Book(title, author, genre, numberOfPages);
+    	Book newBook = new Book(type, title, author, genre, numberOfPages);
     	
-    	catalog.addBook(newBook);
+    	catalog.addToCatalog(newBook);
     	
     	return true;
     }
@@ -134,8 +107,16 @@ public class Book extends Catalog implements Requestable {
 
 	@Override
 	public String getFormattedRequestDetails() {
-		// TODO Auto-generated method stub
-		return null;
+StringBuilder formattedDetails = new StringBuilder();
+		
+		formattedDetails.append("Book Details:\n");
+		formattedDetails.append("Title: ").append(title).append("\n");
+		formattedDetails.append("Author: ").append(author).append("\n");
+		formattedDetails.append("Genre: ").append(genre).append("\n");
+		formattedDetails.append("Page Number: ").append(numberOfPages).append("\n");
+
+		
+		return formattedDetails.toString();		
 	}
     
 

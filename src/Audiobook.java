@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,9 +11,10 @@ import java.util.Map;
  *         References: Morelli, R., & Walde, R. (2016). Java, Java, Java:
  *         Object-Oriented Problem Solving. Retrieved from
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *         
+ * 		   https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
  * 
- * 
- *         Version/date: 10/27
+ *         Version/date: 11/18
  * 
  *         Responsibilities of class: This class inherits from the media library
  *         class.
@@ -23,17 +25,22 @@ import java.util.Map;
  * 
  */
 
-public class Audiobook extends Catalog implements Requestable {
+public class Audiobook extends Entries implements Requestable {
+	
+	private List<Audiobook> audiobooks;
+
 	private String title;
 	private String narrator;
 	private int audioLength;
+	private String type = "AudioBook";
 
 	/**
 	 * Purpose: ArrayList book constructor
 	 * 
 	 * @param no param constuctor
 	 */
-	public Audiobook() {
+	public Audiobook(String type) {
+		super("Audiobook");
 	}
 
 	/**
@@ -41,40 +48,39 @@ public class Audiobook extends Catalog implements Requestable {
 	 * 
 	 * @param narrator
 	 * @param title
-	 * @param audio    length
+	 * @param audio length
 	 * 
 	 */
-	public Audiobook(String title, String narrator, int audioLength) {
+	public Audiobook(String type, String title, String narrator, int audioLength) {
+		super("Audiobook");
 		this.title = title;
 		this.narrator = narrator;
 		this.audioLength = audioLength;
+		updateCount();
 	}
-
-	// setters
-
-	public void setNarrator(String newNarrator) {
-		this.narrator = newNarrator;
+	
+	public void updateCount() {
+		System.out.println("Updating Audiobook count.");
 	}
-
-	public void setTitle(String newTitle) {
-		this.title = newTitle;
-	}
-
-	public void setAudioLength(int newAudioLength) {
-		this.audioLength = newAudioLength;
-	}
-
+	
+	/**
+	 * Purpose: creates a new "request" given the audiobook traits and adds it to the catalog
+	 * 
+	 * 
+	 * @param details (title, narrator, and audio length
+	 * 
+	 */
 	@Override
 	public boolean newRequest(Map<String, String> details) {
-		Catalog catalog = getInstance();
+		Catalog catalog = Catalog.getInstance();
 
 		String title = details.get("title");
 		String narrator = details.get("narrator");
 		int audioLength = Integer.parseInt(details.get("audioLength"));
 
-		Audiobook newAudiobook = new Audiobook(title, narrator, audioLength);
+		Audiobook newAudiobook = new Audiobook(type, title, narrator, audioLength);
 
-		catalog.addAudiobooks(newAudiobook);
+		catalog.addToCatalog(newAudiobook);
 		
 		return true;
 	}

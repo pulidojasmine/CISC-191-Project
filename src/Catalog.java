@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -13,29 +14,27 @@ import java.util.List;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  * 
- *         Version/date: 10/27
+ *         Version/date: 11/18
  * 
- *         Responsibilities of class: This is the main parent class called
+ *         Responsibilities of class: This is the other main parent class called
  *         "catalog". Think of it like the library building where all the
  *         different types of books and media is stored.
  * 
- *         This class will not contain much itself - although it is not an
- *         abstract class.
+ * 			Catalog extends entries. 
  * 
- *         A catalog has:
+ *         A catalog has: entries (books, research articles, and audiobooks)
  * 
  */
 
-public class Catalog extends Entries {
-	private List<Book> books;
-	private List<ResearchArticle> articles;
-	private List<Audiobook> audiobooks;
+public class Catalog {
 	
+	private List<Entries> entries;
 	private static Catalog instance;
+	private int totalEntries;
 
 	public Catalog() {
-		this.books = new ArrayList<>();
-
+		entries = new ArrayList<>();
+		totalEntries = 0;
 	}
 	
 	public static Catalog getInstance() {
@@ -44,24 +43,25 @@ public class Catalog extends Entries {
 		}
 		return instance;
 	}
+	
+	/**
+	 * Purpose: 
+	 * 
+	 */
+	public void addToCatalog(Entries entry) {
+		entries.add(entry);
+		totalEntries++;
+	}
+	
+	public void removeFromCatalog(Entries entry) {
+		entries.remove(entry);
+		totalEntries--;
+	}
+	
+	public List<Entries> getEntires() {
+		return entries;
+	}
+	
 
-	public void addBook(Book bookToAdd) {
-		books.add(bookToAdd);
-	}
-	
-	public void addResearchArticle(ResearchArticle articleToAdd) {
-		articles.add(articleToAdd);
-	}
-	
-	public void addAudiobooks(Audiobook audiobookToAdd) {
-		audiobooks.add(audiobookToAdd);
-	}
-
-	@Override
-	public void addEntry(Entries entry) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
