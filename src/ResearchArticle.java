@@ -1,4 +1,4 @@
-import java.util.List;
+
 import java.util.Map;
 
 /**
@@ -13,7 +13,7 @@ import java.util.Map;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  * 
- *         Version/date: 11/18
+ *         Version/date: 12/1
  * 
  *         Responsibilities of class: This class inherits from the research database
  *         class.
@@ -24,11 +24,10 @@ import java.util.Map;
  */
 
 public class ResearchArticle extends Entries implements Requestable {
-	private List<ResearchArticle> articles;
+
 
 	private String topic;
 	private String datePublished;
-	private String type = "Research Article";
 
 
 	/**
@@ -36,7 +35,7 @@ public class ResearchArticle extends Entries implements Requestable {
 	 * 
 	 * @param no param constuctor
 	 */
-	public ResearchArticle(String type) {
+	public ResearchArticle() {
 		super("Research Article");
 	}
 
@@ -49,10 +48,11 @@ public class ResearchArticle extends Entries implements Requestable {
 	 * @param audio length
 	 * 
 	 */
-	public ResearchArticle(String type, String topic, String datePublished) {
+	public ResearchArticle(String topic, String datePublished) {
 		super("Research Article");
 		this.topic = topic;
 		this.datePublished = datePublished;
+		updateCount();
 	}
 	
 	public void updateCount() {
@@ -66,7 +66,7 @@ public class ResearchArticle extends Entries implements Requestable {
 		String topic = details.get("topic");
 		String publicationDate = details.get("publicationDate");
 		
-		ResearchArticle newArticle = new ResearchArticle(type, topic, publicationDate);
+		ResearchArticle newArticle = new ResearchArticle(topic, publicationDate);
 		
 		catalog.addToCatalog(newArticle);
 		
@@ -76,11 +76,11 @@ public class ResearchArticle extends Entries implements Requestable {
 
 	@Override
 	public void setDetails(Map<String, String> details) {
-		if (details.containsKey("title")) {
+		if (details.containsKey("topic")) {
 			this.topic = details.get("topic");
 		}
 
-		if (details.containsKey("narrator")) {
+		if (details.containsKey("datePublished")) {
 			this.datePublished = details.get("datePublished");
 		}
 		

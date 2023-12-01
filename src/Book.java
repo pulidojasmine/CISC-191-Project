@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Map;
 /**
  * Lead Author(s):
@@ -12,7 +11,7 @@ import java.util.Map;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  * 
- *         Version/date: 11/18
+ *         Version/date: 12/1
  * 
  *         Responsibilities of class: This class inherits from the catalog
  *         class.
@@ -24,19 +23,18 @@ import java.util.Map;
 
 public class Book extends Entries implements Requestable {
 	
-	private List<Book> books;
 	private String title;
 	private String author;
 	private String genre;
 	private int numberOfPages;
-	private String type = "Book";
+
 
 	/**
 	 * Purpose: ArrayList book constructor
 	 * 
 	 * @param no param constuctor
 	 */
-	public Book(String type) {
+	public Book() {
 		super("Book");
 	}
 
@@ -49,18 +47,15 @@ public class Book extends Entries implements Requestable {
 	 * @param numberOfPages
 	 * 
 	 */
-	public Book(String type, String title, String author, String genre, int numberOfPages) {
+	public Book(String title, String author, String genre, int numberOfPages) {
 		super("Book");
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
 		this.numberOfPages = numberOfPages;
-		updateCount();
+
 	}
 	
-	public void updateCount() {
-		System.out.println("Updating Book count.");
-	}
 	
     //implementing requestable interface
     
@@ -73,7 +68,7 @@ public class Book extends Entries implements Requestable {
     	String genre = details.get("genre");
     	int numberOfPages = Integer.parseInt(details.get("numberOfPages"));
     	
-    	Book newBook = new Book(type, title, author, genre, numberOfPages);
+    	Book newBook = new Book(title, author, genre, numberOfPages);
     	
     	catalog.addToCatalog(newBook);
     	

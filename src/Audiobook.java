@@ -1,4 +1,4 @@
-import java.util.List;
+
 import java.util.Map;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Map;
  *         
  * 		   https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
  * 
- *         Version/date: 11/18
+ *         Version/date: 12/1
  * 
  *         Responsibilities of class: This class inherits from the media library
  *         class.
@@ -27,19 +27,17 @@ import java.util.Map;
 
 public class Audiobook extends Entries implements Requestable {
 	
-	private List<Audiobook> audiobooks;
-
 	private String title;
 	private String narrator;
 	private int audioLength;
-	private String type = "AudioBook";
+
 
 	/**
 	 * Purpose: ArrayList book constructor
 	 * 
 	 * @param no param constuctor
 	 */
-	public Audiobook(String type) {
+	public Audiobook() {
 		super("Audiobook");
 	}
 
@@ -51,16 +49,11 @@ public class Audiobook extends Entries implements Requestable {
 	 * @param audio length
 	 * 
 	 */
-	public Audiobook(String type, String title, String narrator, int audioLength) {
+	public Audiobook(String title, String narrator, int audioLength) {
 		super("Audiobook");
 		this.title = title;
 		this.narrator = narrator;
 		this.audioLength = audioLength;
-		updateCount();
-	}
-	
-	public void updateCount() {
-		System.out.println("Updating Audiobook count.");
 	}
 	
 	/**
@@ -78,7 +71,7 @@ public class Audiobook extends Entries implements Requestable {
 		String narrator = details.get("narrator");
 		int audioLength = Integer.parseInt(details.get("audioLength"));
 
-		Audiobook newAudiobook = new Audiobook(type, title, narrator, audioLength);
+		Audiobook newAudiobook = new Audiobook(title, narrator, audioLength);
 
 		catalog.addToCatalog(newAudiobook);
 		

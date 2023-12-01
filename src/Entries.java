@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Lead Author(s):
@@ -14,13 +12,9 @@ import java.util.List;
  * 
  *         https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
  * 
- *         Version/date: 11/18
+ *         Version/date: 12/1
  * 
- *         Responsibilities of class: this is the abstract class that all items
- *         will inherit from (Catalog). Each item in the catalog is an entry in
- *         the ssoystem: They are all the same type and we can count how many
- *         entries are in the system
- * 
+ *         Responsibilities of class: 
  * 
  * 
  * 
@@ -50,6 +44,5 @@ public abstract class Entries {
 		return type;
 	}
 	
-	public abstract void updateCount();
 
 }

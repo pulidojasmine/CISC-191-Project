@@ -15,7 +15,7 @@ import java.util.Map;
  *         https://www.w3schools.com/java/java_hashmap.asp
  * 
  * 
- *         Version/date: 11/18
+ *         Version/date: 12/1
  * 
  *         Responsibilities of class: This an interface that all the subclasses will implement. 
  *         It will add new entries to the catalog, and set new details to that entry (depending on the type of item).
