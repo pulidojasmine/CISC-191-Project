@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -100,6 +102,35 @@ public class Audiobook extends Entries implements Requestable {
 
 	@Override
 	public String getFormattedRequestDetails() {
+		StringBuilder formattedDetails = new StringBuilder();
+		
+		formattedDetails.append("Audiobook Details:\n");
+		formattedDetails.append("Title: ").append(title).append("\n");
+		formattedDetails.append("Narrator: ").append(narrator).append("\n");
+		formattedDetails.append("Audio Length: ").append(audioLength).append("\n");
+		
+		return formattedDetails.toString();
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+	
+	public static List<Entries> searchByTitle(List<Entries> entries, String title) {
+        List<Entries> results = new ArrayList<>();
+        for (Entries entry : entries) {
+            if (entry instanceof Audiobook) {
+                Audiobook audiobook = (Audiobook) entry;
+                if (audiobook.getTitle().equalsIgnoreCase(title)) {
+                    results.add(entry);
+                }
+            }
+        }
+        return results;
+    }
+
+	@Override
+	public String getDetails() {
 		StringBuilder formattedDetails = new StringBuilder();
 		
 		formattedDetails.append("Audiobook Details:\n");

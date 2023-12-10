@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +91,36 @@ public class ResearchArticle extends Entries implements Requestable {
 
 	@Override
 	public String getFormattedRequestDetails() {
+		StringBuilder formattedDetails = new StringBuilder();
+		
+		formattedDetails.append("Research Article Details:\n");
+		formattedDetails.append("Topic: ").append(topic).append("\n");
+		formattedDetails.append("Date Published: ").append(datePublished).append("\n");
+		
+		return formattedDetails.toString();
+	}
+
+
+	public String getDatePublished() {
+		return this.datePublished;
+	}
+	
+	public static List<Entries> searchByDate(List<Entries> entries, String date) {
+        List<Entries> results = new ArrayList<>();
+        for (Entries entry : entries) {
+            if (entry instanceof ResearchArticle) {
+                ResearchArticle article = (ResearchArticle) entry;
+                if (article.getDatePublished().equalsIgnoreCase(date)) {
+                    results.add(entry);
+                }
+            }
+        }
+        return results;
+    }
+
+
+	@Override
+	public String getDetails() {
 		StringBuilder formattedDetails = new StringBuilder();
 		
 		formattedDetails.append("Research Article Details:\n");

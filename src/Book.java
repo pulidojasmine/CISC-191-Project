@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 /**
  * Lead Author(s):
@@ -13,8 +15,7 @@ import java.util.Map;
  * 
  *         Version/date: 12/1
  * 
- *         Responsibilities of class: This class inherits from the catalog
- *         class.
+ *         Responsibilities of class: 
  * 
  *         Book has an author, genre, and number of pages
  * 
@@ -83,11 +84,11 @@ public class Book extends Entries implements Requestable {
 		}
 
 		if (details.containsKey("author")) {
-			this.title = details.get("author");
+			this.author = details.get("author");
 		}
 
 		if (details.containsKey("genre")) {
-			this.title = details.get("genre");
+			this.genre = details.get("genre");
 		}
 
 		if (details.containsKey("numberOfPages")) {
@@ -113,6 +114,50 @@ StringBuilder formattedDetails = new StringBuilder();
 		
 		return formattedDetails.toString();		
 	}
+
+
+	public String getAuthor() {
+		return this.author;
+	}
+	
+	public String getTitle() {
+		return this.title;
+	}
+	
+	public String getGenre() {
+		return this.genre;
+	}
+	
+	public int getPageNumber() {
+		return this.numberOfPages;
+	}
     
+	public static List<Entries> searchByAuthor(List<Entries> entries, String author) {
+        List<Entries> results = new ArrayList<>();
+        for (Entries entry : entries) {
+            if (entry instanceof Book) {
+                Book book = (Book) entry;
+                if (book.getAuthor().equalsIgnoreCase(author)) {
+                    results.add(entry);
+                }
+            }
+        }
+        return results;
+    }
+
+
+	@Override
+	public String getDetails() {
+		StringBuilder formattedDetails = new StringBuilder();
+		
+		formattedDetails.append("Book Details:\n");
+		formattedDetails.append("Title: ").append(title).append("\n");
+		formattedDetails.append("Author: ").append(author).append("\n");
+		formattedDetails.append("Genre: ").append(genre).append("\n");
+		formattedDetails.append("Page Number: ").append(numberOfPages).append("\n");
+
+		
+		return formattedDetails.toString();	
+	}
 
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lead Author(s):
@@ -27,9 +29,7 @@ public abstract class Entries {
 	public Entries(String newType) {
 		this.type = newType;
 		totalEntries++;
-	}
-
-	
+	}	
 	/**
 	 * Purpose: gets the total number of entries in our system
 	 * 
@@ -43,6 +43,50 @@ public abstract class Entries {
 	public String getType() {
 		return type;
 	}
+	
+	public class CatalogSearch {
+
+	    public static List<Entries> searchByAuthor(List<Entries> entries, String author) {
+	        List<Entries> results = new ArrayList<>();
+	        for (Entries entry : entries) {
+	            if (entry instanceof Book) {
+	                Book book = (Book) entry;
+	                if (book.getAuthor().equalsIgnoreCase(author)) {
+	                    results.add(entry);
+	                }
+	            }
+	        }
+	        return results;
+	    }
+
+	    public static List<Entries> searchByTitle(List<Entries> entries, String title) {
+	        List<Entries> results = new ArrayList<>();
+	        for (Entries entry : entries) {
+	            if (entry instanceof Audiobook) {
+	                Audiobook audiobook = (Audiobook) entry;
+	                if (audiobook.getTitle().equalsIgnoreCase(title)) {
+	                    results.add(entry);
+	                }
+	            }
+	        }
+	        return results;
+	    }
+
+	    public static List<Entries> searchByDate(List<Entries> entries, String date) {
+	        List<Entries> results = new ArrayList<>();
+	        for (Entries entry : entries) {
+	            if (entry instanceof ResearchArticle) {
+	                ResearchArticle article = (ResearchArticle) entry;
+	                if (article.getDatePublished().equalsIgnoreCase(date)) {
+	                    results.add(entry);
+	                }
+	            }
+	        }
+	        return results;
+	    }
+	}
+
+	public abstract String getDetails();
 	
 
 }

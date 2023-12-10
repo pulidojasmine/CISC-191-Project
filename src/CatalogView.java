@@ -1,10 +1,7 @@
 import javax.swing.JFrame; 
 import javax.swing.JButton;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-
+import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -25,6 +22,8 @@ import javax.swing.*;
  * 
  */
 
+
+@SuppressWarnings("serial")
 
 public class CatalogView extends JFrame {
 	
@@ -64,6 +63,10 @@ public class CatalogView extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+		registerSearchAction();
+        registerFilterActions();
+        registerRequestEditActions();
 	}
 	
 	private void createSearchBar() {
@@ -116,17 +119,27 @@ public class CatalogView extends JFrame {
 		mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 	}
 	
-	public String getTextFromField() {
+	public String getTextFromField() { 
 		return searchField.getText();
 	}
 	
 	
-	  /**
-	    * Main method to quickly check what the view looks like
-	    * @param args
-	    */
-	   public static void main(String[] args)
-	   {
-	      new CatalogView();
-	   }
+	//registering event handlers for buttons
+	
+	private void registerSearchAction() {
+        searchButton.addActionListener(new CatalogListener.SearchAction(searchField));
+    }
+
+    private void registerFilterActions() {
+        audiobookButton.addActionListener(new CatalogListener.FilterAction("Audiobook"));
+        bookButton.addActionListener(new CatalogListener.FilterAction("Book"));
+        articleButton.addActionListener(new CatalogListener.FilterAction("Research Article"));
+    }
+
+    private void registerRequestEditActions() {
+        requestAddButton.addActionListener(new CatalogListener.RequestAddButton());
+        editEntryButton.addActionListener(new CatalogListener.EditEntryButton());
+    }
+	
+
 }
