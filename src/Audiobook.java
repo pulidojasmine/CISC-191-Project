@@ -13,10 +13,10 @@ import java.util.Map;
  *         References: Morelli, R., & Walde, R. (2016). Java, Java, Java:
  *         Object-Oriented Problem Solving. Retrieved from
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
- *         
- * 		   https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
  * 
- *         Version/date: 12/1
+ *         https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
+ * 
+ *         Version/date: 12/15
  * 
  *         Responsibilities of class: This class inherits from the media library
  *         class.
@@ -28,14 +28,14 @@ import java.util.Map;
  */
 
 public class Audiobook extends Entries implements Requestable {
-	
+
+	// field variables
 	private String title;
 	private String narrator;
 	private int audioLength;
 
-
 	/**
-	 * Purpose: ArrayList book constructor
+	 * Purpose: audiobook constructor
 	 * 
 	 * @param no param constuctor
 	 */
@@ -44,11 +44,11 @@ public class Audiobook extends Entries implements Requestable {
 	}
 
 	/**
-	 * Purpose: ArrayList book param constructor
+	 * Purpose: audiobook param constructor
 	 * 
 	 * @param narrator
 	 * @param title
-	 * @param audio length
+	 * @param audiolength
 	 * 
 	 */
 	public Audiobook(String title, String narrator, int audioLength) {
@@ -57,9 +57,10 @@ public class Audiobook extends Entries implements Requestable {
 		this.narrator = narrator;
 		this.audioLength = audioLength;
 	}
-	
+
 	/**
-	 * Purpose: creates a new "request" given the audiobook traits and adds it to the catalog
+	 * Purpose: creates a new "request" given the audiobook traits and adds it to
+	 * the catalog
 	 * 
 	 * 
 	 * @param details (title, narrator, and audio length
@@ -76,10 +77,16 @@ public class Audiobook extends Entries implements Requestable {
 		Audiobook newAudiobook = new Audiobook(title, narrator, audioLength);
 
 		catalog.addToCatalog(newAudiobook);
-		
+
 		return true;
 	}
 
+	/**
+	 * Purpose: sets new details to a request
+	 * 
+	 * @param Map <String, String> called details
+	 * 
+	 */
 	@Override
 	public void setDetails(Map<String, String> details) {
 		if (details.containsKey("title")) {
@@ -100,44 +107,70 @@ public class Audiobook extends Entries implements Requestable {
 
 	}
 
+	/**
+	 * Purpose: gets the details of a request in a specific format
+	 * 
+	 * @return a formated String of the details
+	 * 
+	 */
 	@Override
 	public String getFormattedRequestDetails() {
 		StringBuilder formattedDetails = new StringBuilder();
-		
+
 		formattedDetails.append("Audiobook Details:\n");
 		formattedDetails.append("Title: ").append(title).append("\n");
 		formattedDetails.append("Narrator: ").append(narrator).append("\n");
 		formattedDetails.append("Audio Length: ").append(audioLength).append("\n");
-		
+
 		return formattedDetails.toString();
 	}
 
+	/**
+	 * Purpose: gets the title
+	 * 
+	 * @return String title
+	 * 
+	 */
 	public String getTitle() {
 		return this.title;
 	}
-	
-	public static List<Entries> searchByTitle(List<Entries> entries, String title) {
-        List<Entries> results = new ArrayList<>();
-        for (Entries entry : entries) {
-            if (entry instanceof Audiobook) {
-                Audiobook audiobook = (Audiobook) entry;
-                if (audiobook.getTitle().equalsIgnoreCase(title)) {
-                    results.add(entry);
-                }
-            }
-        }
-        return results;
-    }
 
+	/**
+	 * Purpose: searches through audiobooks (list of entrires, using the title)
+	 * 
+	 * @param List<Entries> entries
+	 * @param String        title
+	 * 
+	 * @return list of entries (the results) associated with title given
+	 */
+	public static List<Entries> searchByTitle(List<Entries> entries, String title) {
+		List<Entries> results = new ArrayList<>();
+		for (Entries entry : entries) {
+			if (entry instanceof Audiobook) {
+				Audiobook audiobook = (Audiobook) entry;
+				if (audiobook.getTitle().equalsIgnoreCase(title)) {
+					results.add(entry);
+				}
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * Purpose: creates formatted results of the search
+	 * 
+	 * @return formatted String of details
+	 * 
+	 */
 	@Override
 	public String getDetails() {
 		StringBuilder formattedDetails = new StringBuilder();
-		
+
 		formattedDetails.append("Audiobook Details:\n");
 		formattedDetails.append("Title: ").append(title).append("\n");
 		formattedDetails.append("Narrator: ").append(narrator).append("\n");
 		formattedDetails.append("Audio Length: ").append(audioLength).append("\n");
-		
+
 		return formattedDetails.toString();
 	}
 
